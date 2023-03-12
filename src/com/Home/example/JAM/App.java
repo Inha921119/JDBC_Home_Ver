@@ -103,24 +103,20 @@ public class App {
 
 					SecSql sql = new SecSql();
 
-					sql.append("SELECT A.title");
-					sql.append("A.regdate,");
-					sql.append("A.`body`");
-					sql.append("FROM article AS A");
+					sql.append("SELECT *");
+					sql.append("FROM article");
 					sql.append("WHERE id = ?", id);
 
 					Map<String, Object> articleDetail = DBUtil.selectRow(conn, sql);
-					System.out.println("작동확인 5");
 
 					articles.add(new Article(articleDetail));
-					System.out.println("작동확인 6");
 
 					if (articles.size() == 0) {
 						System.out.println("게시물이 없습니다");
 						continue;
 					}
 
-					Article article = articles.get(id);
+					Article article = articles.get(0);
 
 					System.out.printf("제목 :	%s\n", article.title);
 					System.out.printf("작성일 : 	%s\n", article.regDate);
