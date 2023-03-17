@@ -11,6 +11,7 @@ public class Article {
 	public String body;
 	public int writerId;
 	public String writerName;
+	public int hit;
 
 	public Article(Map<String, Object> articleMap) {
 		this.id = (int) articleMap.get("id");
@@ -20,12 +21,12 @@ public class Article {
 		this.body = (String) articleMap.get("body");
 		this.writerId = (int) articleMap.get("writerId");
 		this.writerName = (String) articleMap.get("writerName");
+		this.hit = (int) articleMap.get("hit");
 	}
 
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", regDate=" + regDate + ", updateDate=" + updateDate + ", title=" + title
-				+ ", body=" + body + ", writerId=" + writerId + "]";
+				+ ", body=" + body + ", writerId=" + writerId + ", writerName=" + writerName + ", hit=" + hit + "]";
 	}
-	
 }

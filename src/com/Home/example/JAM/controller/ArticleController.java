@@ -83,6 +83,8 @@ public class ArticleController extends Controller {
 
 	public void showDetail(String cmd) {
 		int id = Integer.parseInt(cmd.split(" ")[2]);
+		
+		articleService.hitIncrese(id);
 
 		Article article = articleService.getArticle(id);
 
@@ -98,6 +100,7 @@ public class ArticleController extends Controller {
 		if (!article.regDate.equals(article.updateDate)) {
 			System.out.printf("수정날짜 : %s\n", Util.changeDateToString(article.updateDate));
 		}
+		System.out.printf("조회수 : 	%s회\n", article.hit);
 		System.out.printf("내용 : 	%s\n", article.body);
 	}
 

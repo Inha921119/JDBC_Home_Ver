@@ -69,3 +69,5 @@ INNER JOIN `member` AS m
 ON a.writerId = m.id
 WHERE m.id = 1
 ORDER BY id DESC;
+
+ALTER TABLE article ADD COLUMN hit INT UNSIGNED NOT NULL AFTER `body`;
