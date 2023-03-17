@@ -51,6 +51,7 @@ phoneNum = '00000000000';
 ALTER TABLE `member` MODIFY COLUMN loginId VARCHAR(50) NOT NULL UNIQUE;
 ALTER TABLE `member` MODIFY COLUMN phoneNum VARCHAR(50) NOT NULL UNIQUE;
 
+# article 테이블에 회원번호 컬럼 추가
 ALTER TABLE article ADD COLUMN writerId INT UNSIGNED NOT NULL AFTER updatedate;
 
 SELECT *
@@ -70,4 +71,14 @@ ON a.writerId = m.id
 WHERE m.id = 1
 ORDER BY id DESC;
 
+# article 테이블에 조회수 컬럼 추가
 ALTER TABLE article ADD COLUMN hit INT UNSIGNED NOT NULL AFTER `body`;
+
+UPDATE article
+SET hit = hit + 1
+WHERE id = 3;
+
+SELECT a.*
+FROM article AS a
+WHERE title LIKE CONCAT('%', ?, '%')
+ORDER BY id DESC;

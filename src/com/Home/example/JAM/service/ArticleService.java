@@ -19,9 +19,9 @@ public class ArticleService {
 		return articleDao.doWrite(title, body, loginedMemberId);
 	}
 
-	public List<Article> getArticles() {
-		List<Map<String, Object>> articleListMap = articleDao.getArticles();
-		
+	public List<Article> getArticles(String keyWord) {
+		List<Map<String, Object>> articleListMap = articleDao.getArticles(keyWord);
+
 		List<Article> articles = new ArrayList<>();
 
 		for (Map<String, Object> articleMap : articleListMap) {
@@ -29,11 +29,11 @@ public class ArticleService {
 		}
 		return articles;
 	}
-	
+
 	public Article getArticle(int id) {
-		
+
 		Map<String, Object> articleMap = articleDao.getArticle(id);
-		
+
 		if (articleMap.isEmpty()) {
 			System.out.printf("%d번 게시글은 존재하지 않습니다.\n", id);
 			return null;

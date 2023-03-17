@@ -34,16 +34,26 @@ public class ArticleController extends Controller {
 		System.out.printf("%d번 글이 생성되었습니다\n", id);
 	}
 
-	public void showList() {
-		System.out.println("== 게시물 목록 ==");
-
-		List<Article> articles = articleService.getArticles();
-
-		if (articles.size() == 0) {
+	public void showList(String cmd) {
+		String keyWord = cmd.substring("article list".length()).trim();
+		
+		List<Article> articles = articleService.getArticles(keyWord);
+		
+		if (keyWord.length() > 0) {
+			if (articles.size() == 0) {
+				System.out.println("검색결과가 없습니다");
+				return;
+			}
+		} else if (articles.size() == 0) {
 			System.out.println("게시물이 없습니다");
 			return;
 		}
+		
+		System.out.println("== 게시물 목록 ==");
 
+		if (keyWord.length() > 0) {
+			System.out.printf("검색어 : %s\n", keyWord);
+		} 
 		System.out.println("번호	| 제목		| 작성자	| 작성날짜");
 
 		for (Article article : articles) {
@@ -67,14 +77,14 @@ public class ArticleController extends Controller {
 
 		if (article.writerId == Session.loginedMemberId) {
 			System.out.println("== 게시물 수정 ==");
-			
+
 			System.out.printf("수정할 제목 : ");
 			String title = sc.nextLine().trim();
 			System.out.printf("수정할 내용 : ");
 			String body = sc.nextLine().trim();
-			
+
 			articleService.doModify(id, title, body);
-			
+
 			System.out.printf("%d번 글이 수정되었습니다\n", id);
 		} else {
 			System.out.println("권한이 없습니다");
@@ -83,7 +93,7 @@ public class ArticleController extends Controller {
 
 	public void showDetail(String cmd) {
 		int id = Integer.parseInt(cmd.split(" ")[2]);
-		
+
 		articleService.hitIncrese(id);
 
 		Article article = articleService.getArticle(id);
